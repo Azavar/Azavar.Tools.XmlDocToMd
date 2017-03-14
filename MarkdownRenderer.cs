@@ -185,7 +185,7 @@ namespace Azavar.Tools.XmlDocToMd
             if (d.DocumentationType == "example")
             {
                 result = string.Format(d.FormattedContent, d.SubDocumentation.Select(sub => RenderDocumentation(sub, false)).Cast<object>().ToArray());
-                result = $"\r\n```{result}```";
+                result = $"\r\n```\r\n{result}\r\n```";
             }
             else
             {
