@@ -25,6 +25,11 @@ namespace Azavar.Tools.XmlDocToMd
         /// A representation of the XML documentation of type <see cref="XmlDocumentationModel"/>.
         /// </summary>
         public XmlDocumentationModel Model { get; }
+        /// <summary>
+        /// Gets a dictionary with all namespaces, key represents the namspace string (without the default namespace)
+        /// and value represents an array of sub-namespaces formatted as an array of strings ("Ns1.Ns2" will be {"Ns1","Ns2"}).
+        /// </summary>
+        public Dictionary<string, string[][]> NamespacesTree { get; }
 
         /// <summary>
         /// Initializes with required parameters an instance for a parsed model representing XML documentation for an assembly.
@@ -37,8 +42,22 @@ namespace Azavar.Tools.XmlDocToMd
             OutputFolderPath = outputFolderPath;
             RootUrl = rootUrl;
             Model = model;
+            var allNamespaces = model.Members.Select(p => p.Value)
+                .Where(m => m is Model.Type)
+                .Cast<Model.Type>()
+                .Select(t => t.NamespaceStrings.Any() ? "." + string.Join(".", t.NamespaceStrings) : "").Distinct().ToArray();
+            NamespacesTree = allNamespaces
+                .ToDictionary(
+                    n => n.TrimStart('.'),
+                    n => allNamespaces.Where(n2 => IsSubNamespace(n, n2)).Select(n2 => n2.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries)).ToArray()
+                );
         }
-        
+
+        private bool IsSubNamespace(string n1, string n2)
+        {
+            return n2.StartsWith(n1) && (n2.Count(c => c.Equals('.')) == n1.Count(c => c.Equals('.')) + 1);
+        }
+
         /// <summary>
         /// Runs the logic to generate markdown files.
         /// </summary>
@@ -52,7 +71,17 @@ namespace Azavar.Tools.XmlDocToMd
                 var filePath = Path.Combine(OutputFolderPath, file.Key.TrimStart(Path.DirectorySeparatorChar));
                 Console.WriteLine("Rendering file: {0} for types:", filePath);
                 var sb = new StringBuilder();
-                sb.AppendLine($"## {string.Join(".", new[] { Model.AssemblyName }.Concat(file.Value[0].NamespaceStrings))}\r\n\r\n");
+                var namespaceString = string.Join(".", file.Value[0].NamespaceStrings);
+
+                sb.AppendLine($"## {FullNamespaceString(namespaceString)}\r\n\r\n");
+                if (NamespacesTree[namespaceString].Any())
+                {
+                    sb.AppendLine($"### Namespaces\r\n\r\n");
+                    foreach (var @namespace in NamespacesTree[namespaceString])
+                    {
+                        sb.AppendLine($"- {RenderNamespace(@namespace)}\r\n\r\n");
+                    }
+                }
                 foreach (var type in file.Value)
                 {
                     Console.WriteLine("\t {0}", GetPresentableTypeName(type));
@@ -63,6 +92,21 @@ namespace Azavar.Tools.XmlDocToMd
                 File.WriteAllText(filePath, sb.ToString());
             }
             Console.WriteLine("Done rendering markdown");
+        }
+
+        private string RenderNamespace(string[] ns)
+        {
+            return $"[{FullNamespaceString(string.Join(".", ns))}]({RootUrl + RelativeFolderForNamespace(ns)})";
+        }
+
+        private string RelativeFolderForNamespace(string[] ns)
+        {
+            return string.Join("/", ns);
+        }
+
+        private string FullNamespaceString(string namespaceString)
+        {
+            return $"{Model.AssemblyName}{(string.IsNullOrWhiteSpace(namespaceString) ? string.Empty : ".")}{namespaceString}";
         }
 
         private string RenderType(Model.Type type)
