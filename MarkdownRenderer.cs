@@ -14,24 +14,6 @@ namespace Azavar.Tools.XmlDocToMd
     public class MarkdownRenderer
     {
         /// <summary>
-        /// Gets the path to the folder where generated files will be placed.
-        /// </summary>
-        public string OutputFolderPath { get; }
-        /// <summary>
-        /// Gets the home page of the github repository as it appears in the browser, like: "https://github.com/repository-name/blob/master/".
-        /// </summary>
-        public string RootUrl { get; }
-        /// <summary>
-        /// A representation of the XML documentation of type <see cref="XmlDocumentationModel"/>.
-        /// </summary>
-        public XmlDocumentationModel Model { get; }
-        /// <summary>
-        /// Gets a dictionary with all namespaces, key represents the namspace string (without the default namespace)
-        /// and value represents an array of sub-namespaces formatted as an array of strings ("Ns1.Ns2" will be {"Ns1","Ns2"}).
-        /// </summary>
-        public Dictionary<string, string[][]> NamespacesTree { get; }
-
-        /// <summary>
         /// Initializes with required parameters an instance for a parsed model representing XML documentation for an assembly.
         /// </summary>
         /// <param name="model">An <see cref="XmlDocumentationModel"/> loaded from XML documentation file.</param>
@@ -53,149 +35,156 @@ namespace Azavar.Tools.XmlDocToMd
                 );
         }
 
-        private bool IsSubNamespace(string n1, string n2)
-        {
-            return n2.StartsWith(n1) && (n2.Count(c => c.Equals('.')) == n1.Count(c => c.Equals('.')) + 1);
-        }
-
+        #region Rendering methods
         /// <summary>
         /// Runs the logic to generate markdown files.
         /// </summary>
         public void Render()
         {
-            Console.WriteLine("Processing documentation for assembly: {0}", Model.AssemblyName);
+            Console.WriteLine(@"Processing documentation for assembly: {0}", Model.AssemblyName);
             var files = Model.Members.Values.Where(m => (m as Model.Type) != null).Cast<Model.Type>().GroupBy(RelativeFileFor).ToDictionary(
                 grp => grp.Key, grp => grp.ToArray());
             foreach (var file in files)
             {
                 var filePath = Path.Combine(OutputFolderPath, file.Key.TrimStart(Path.DirectorySeparatorChar));
-                Console.WriteLine("Rendering file: {0} for types:", filePath);
+                Console.WriteLine(@"Rendering file: {0} for types:", filePath);
                 var sb = new StringBuilder();
                 var namespaceString = string.Join(".", file.Value[0].NamespaceStrings);
 
-                sb.AppendLine($"## {FullNamespaceString(namespaceString)}\r\n\r\n");
+                sb.AppendLine(string.Format(MarkdownTemplates.Title, GetFullNamespaceString(namespaceString)));
                 if (NamespacesTree[namespaceString].Any())
                 {
-                    sb.AppendLine($"### Namespaces\r\n\r\n");
+                    sb.AppendLine(MarkdownTemplates.NamspacesTitle);
                     foreach (var @namespace in NamespacesTree[namespaceString])
                     {
-                        sb.AppendLine($"- {RenderNamespace(@namespace)}\r\n\r\n");
+                        sb.AppendLine(RenderNamespace(@namespace));
                     }
                 }
                 foreach (var type in file.Value)
                 {
-                    Console.WriteLine("\t {0}", GetPresentableTypeName(type));
+                    Console.WriteLine(@"	 {0}", GetPresentableTypeName(type));
                     sb.AppendLine(RenderType(type));
                 }
                 var dirInfo = Directory.GetParent(filePath);
                 dirInfo.Create();
                 File.WriteAllText(filePath, sb.ToString());
             }
-            Console.WriteLine("Done rendering markdown");
+            Console.WriteLine(@"Done rendering markdown");
         }
 
         private string RenderNamespace(string[] ns)
         {
-            return $"[{FullNamespaceString(string.Join(".", ns))}]({RootUrl + RelativeFolderForNamespace(ns)})";
-        }
-
-        private string RelativeFolderForNamespace(string[] ns)
-        {
-            return string.Join("/", ns);
-        }
-
-        private string FullNamespaceString(string namespaceString)
-        {
-            return $"{Model.AssemblyName}{(string.IsNullOrWhiteSpace(namespaceString) ? string.Empty : ".")}{namespaceString}";
+            return string.Format(MarkdownTemplates.NamspaceItem, GetFullNamespaceString(string.Join(".", ns)),
+                RootUrl + RelativeFolderForNamespace(ns));
         }
 
         private string RenderType(Model.Type type)
         {
-            var result = $"<a name=\"{GetUsableId(type.Id)}\"></a>\r\n" +
-                         //$"### [{GetPresentableTypeName(type)}]({RootUrl + RelativeCodeFileFor(type)})\r\n\r\n" +
-                         $"### {GetPresentableTypeName(type)}\r\n\r\n" +
-                         $"{RenderDocumentation(type.Documentation)}\r\n\r\n";
-            if (type.TypeParameters.Count > 0)
+            return string.Format(MarkdownTemplates.TypeFormat,
+                GetUsableId(type.Id),
+                GetPresentableTypeName(type),
+                RenderDocumentation(type.Documentation),
+                RenderTypeParameters(type.TypeParameters),
+                RenderProperties(type.Properties),
+                RenderMethods(type.Methods)
+            );
+        }
+
+        private string RenderTypeParameters(List<TypeParameter> typeParameters)
+        {
+            var result = string.Empty;
+            if (typeParameters.Any())
             {
-                result += "| Type Parameter |Summary |\r\n";
-                result += "|-|-|\r\n";
-                foreach (var typeParameter in type.TypeParameters)
+                result += MarkdownTemplates.TypeParametersHeader;
+                foreach (var typeParameter in typeParameters)
                 {
-                    result += $"|{typeParameter.Name}|{RenderDocumentation(typeParameter.Documentation)}|\r\n";
+                    result += string.Format(MarkdownTemplates.TypeParameterItem, typeParameter.Name,
+                        RenderDocumentation(typeParameter.Documentation));
                 }
-                result += "\r\n\r\n";
+                result += MarkdownTemplates.TypeParametersFooter;
             }
-            if (type.Properties.Count > 0)
+            return result;
+        }
+
+        private string RenderProperties(List<Property> properties)
+        {
+            var result = string.Empty;
+            if (properties.Any())
             {
-                result += "#### Properties\r\n\r\n";
-                foreach (var property in type.Properties)
+                result += MarkdownTemplates.PropertiesHeader;
+                foreach (var property in properties)
                 {
                     result += RenderProperty(property);
                 }
+                result += MarkdownTemplates.PropertiesFooter;
             }
-            if (type.Methods.Count > 0)
+            return result;
+        }
+
+        private string RenderMethods(List<Method> methods)
+        {
+            var result = string.Empty;
+            if (methods.Any())
             {
-                result += "#### Methods\r\n\r\n";
-                foreach (var method in type.Methods)
+                result += MarkdownTemplates.MethodsHeader;
+                foreach (var method in methods)
                 {
                     result += RenderMethod(method);
                 }
+                result += MarkdownTemplates.MethodsFooter;
             }
             return result;
         }
 
         private string RenderProperty(Property property)
         {
-            var result = $"<a name=\"{GetUsableId(property.Id)}\"></a>\r\n" +
-                         $"##### {property.Name}\r\n\r\n" +
-                         $"{RenderDocumentation(property.Documentation)}\r\n\r\n";
-            return result;
+            return string.Format(MarkdownTemplates.PropertyItem,
+                GetUsableId(property.Id),
+                property.Name,
+                RenderDocumentation(property.Documentation)
+            );
         }
 
         private string RenderMethod(Method method)
         {
-            var result = $"<a name=\"{GetUsableId(method.Id)}\"></a>\r\n" +
-                         $"##### {GetPresentableMethodName(method)}\r\n\r\n" +
-                         $"{RenderDocumentation(method.Documentation)}\r\n\r\n";
-            if (method.TypeParameters.Count > 0)
+            return string.Format(MarkdownTemplates.MethodItem,
+                GetUsableId(method.Id),
+                GetPresentableMethodName(method),
+                RenderDocumentation(method.Documentation),
+                RenderTypeParameters(method.TypeParameters),
+                RenderMethodParameters(method.Parameters)
+            );
+        }
+
+        private string RenderMethodParameters(List<MethodParameter> methodParameters)
+        {
+            var result = string.Empty;
+            if (methodParameters.Any())
             {
-                result += "| Type Parameter |Summary |\r\n";
-                result += "|-|-|\r\n";
-                foreach (var typeParameter in method.TypeParameters)
-                {
-                    result += $"|{typeParameter.Name}|{RenderDocumentation(typeParameter.Documentation)}|\r\n";
-                }
-                result += "\r\n\r\n";
-            }
-            if (method.Parameters.Count > 0)
-            {
-                result += "| Parameter | Type | Summary |\r\n";
-                result += "|-|-|-|\r\n";
-                foreach (var parameter in method.Parameters)
+                result += MarkdownTemplates.MethodParametersHeader;
+                foreach (var parameter in methodParameters)
                 {
                     var typeName = GetMethodParameterTypeName(parameter);
                     var typeText = GetMethodParameterPresentableTypeName(parameter);
-                    if (typeName.StartsWith(method.Model.AssemblyName))
+                    if (typeName.StartsWith(Model.AssemblyName))
                     {
                         var id = $"T:{typeName}";
-                        if (method.Model.Members.ContainsKey(id))
+                        if (Model.Members.ContainsKey(id))
                         {
-                            var type = method.Model.Members[id] as Model.Type;
+                            var type = Model.Members[id] as Model.Type;
                             if (type != null)
-                                typeText = $"[{typeText}]({RootUrl + RelativeLocationFor(type).Replace(Path.DirectorySeparatorChar, '/')})";
+                                typeText = string.Format(MarkdownTemplates.Link,
+                                    typeText,
+                                    RootUrl + RelativeLocationFor(type).Replace(Path.DirectorySeparatorChar, '/')
+                                );
                         }
                     }
-                    result += $"|{parameter.Name}|{typeText}|{RenderDocumentation(parameter.Documentation)}|\r\n";
+                    result += string.Format(MarkdownTemplates.MethodParameterItem, parameter.Name, typeText,
+                        RenderDocumentation(parameter.Documentation));
                 }
-                result += "\r\n\r\n";
+                result += MarkdownTemplates.MethodParametersFooter;
             }
             return result;
-        }
-
-
-        private string GetUsableId(string id)
-        {
-            return id.Replace("`", "_").Replace("#", "_");
         }
 
         private string RenderDocumentation(Documentation d, bool cleanText = true)
@@ -220,22 +209,35 @@ namespace Azavar.Tools.XmlDocToMd
                         var method = member as Method;
                         if (method != null)
                             text = GetPresentableMethodName(method);
-                        return $"[{text}]({url})";
+                        return string.Format(MarkdownTemplates.Link, text, url);
                     }
-                    return "Refer to " + d.Attributes["cref"];
+                    var typeName = d.Attributes["cref"].Substring(2); // remove "T:" prefix
+                    return GetPresentableUnknownTypeName(typeName);
                 }
             }
             string result;
             if (d.DocumentationType == "example")
             {
                 result = string.Format(d.FormattedContent, d.SubDocumentation.Select(sub => RenderDocumentation(sub, false)).Cast<object>().ToArray());
-                result = $"\r\n```\r\n{result}\r\n```";
+                result = string.Format(MarkdownTemplates.CodeBlock, result);
             }
             else
             {
                 result = string.Format(d.FormattedContent, d.SubDocumentation.Select(sub => RenderDocumentation(sub)).Cast<object>().ToArray());
             }
             return result;
+        }
+        #endregion
+
+        #region String cleaning
+        private string GetFullNamespaceString(string namespaceString)
+        {
+            return $"{Model.AssemblyName}{(string.IsNullOrWhiteSpace(namespaceString) ? string.Empty : ".")}{namespaceString}";
+        }
+
+        private string GetUsableId(string id)
+        {
+            return id.Replace("`", "_").Replace("#", "_");
         }
 
         private string CleanText(string text)
@@ -265,6 +267,19 @@ namespace Azavar.Tools.XmlDocToMd
             return type.Name.Replace(match.Value, $"<{string.Join(",", paramTypes)}>");
         }
 
+        private string GetPresentableUnknownTypeName(string name)
+        {
+            var match = Regex.Match(name, "`+(?<genericParams>\\d)");
+            if (!match.Success) return name;
+            var paramTypes = new List<string>();
+            var genericParamsCount = int.Parse(match.Groups["genericParams"].Value);
+            if (genericParamsCount > 1)
+                for (var i = 0; i < genericParamsCount; i++)
+                    paramTypes.Add("T" + (i + 1));
+            else
+                paramTypes.Add("T");
+            return name.Replace(match.Value, $"<{string.Join(",", paramTypes)}>");
+        }
         private string GetPresentableMethodName(Method method)
         {
             var result = method.Name;
@@ -363,8 +378,15 @@ namespace Azavar.Tools.XmlDocToMd
                 typeText = typeText.Split(new[] { "." }, StringSplitOptions.None).Last();
             return typeText;
         }
+        #endregion
 
         #region Url helpers
+        private string RelativeFolderForNamespace(string[] ns)
+        {
+            return string.Join("/", ns);
+        }
+
+
         private string RelativeFolderFor(Model.Type type)
         {
             return string.Join(Path.DirectorySeparatorChar.ToString(), type.NamespaceStrings);
@@ -407,6 +429,34 @@ namespace Azavar.Tools.XmlDocToMd
         {
             return $"{RelativeFileFor(property.ContainingType)}#{GetUsableId(property.Id)}";
         }
+        #endregion
+
+        #region Other helper methods
+        private bool IsSubNamespace(string n1, string n2)
+        {
+            return n2.StartsWith(n1) && (n2.Count(c => c.Equals('.')) == n1.Count(c => c.Equals('.')) + 1);
+        }
+
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets the path to the folder where generated files will be placed.
+        /// </summary>
+        public string OutputFolderPath { get; }
+        /// <summary>
+        /// Gets the home page of the github repository as it appears in the browser, like: "https://github.com/repository-name/blob/master/".
+        /// </summary>
+        public string RootUrl { get; }
+        /// <summary>
+        /// A representation of the XML documentation of type <see cref="XmlDocumentationModel"/>.
+        /// </summary>
+        public XmlDocumentationModel Model { get; }
+        /// <summary>
+        /// Gets a dictionary with all namespaces, key represents the namspace string (without the default namespace)
+        /// and value represents an array of sub-namespaces formatted as an array of strings ("Ns1.Ns2" will be {"Ns1","Ns2"}).
+        /// </summary>
+        public Dictionary<string, string[][]> NamespacesTree { get; }
         #endregion
     }
 }
