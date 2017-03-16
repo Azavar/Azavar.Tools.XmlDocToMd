@@ -118,10 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CodeBlock" xml:space="preserve">
+    <value>`{0}`</value>
+  </data>
+  <data name="ExceptionItem" xml:space="preserve">
+    <value>|{0}|{1}|</value>
+    <comment>{0} = Exception type
+{1} = Condition</comment>
+  </data>
+  <data name="ExceptionsFooter" xml:space="preserve">
     <value>
-```
-{0}
-```</value>
+</value>
+  </data>
+  <data name="ExceptionsHeader" xml:space="preserve">
+    <value>##### Exceptions
+
+| Exception | Condition |
+|-|-|
+</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>[{0}]({1})</value>
@@ -134,12 +147,13 @@
 
 {2}
 
-{3}{4}</value>
+{3}{4}{5}</value>
     <comment>{0} = Anchor name
 {1} = Name
 {2} = Documentation
 {3} = Type parameters (generics)
-{4} = Method parameters</comment>
+{4} = Method parameters
+{5} = Exceptions</comment>
   </data>
   <data name="MethodParameterItem" xml:space="preserve">
     <value>|{0}|{1}|{2}|
@@ -153,7 +167,9 @@
 </value>
   </data>
   <data name="MethodParametersHeader" xml:space="preserve">
-    <value>| Parameter | Type | Summary |
+    <value>##### Parameters
+
+| Parameter | Type | Summary |
 |-|-|-|
 </value>
   </data>
@@ -227,7 +243,9 @@
 </value>
   </data>
   <data name="TypeParametersHeader" xml:space="preserve">
-    <value>| Type Parameter |Summary |
+    <value>##### Generic Type Parameters
+
+| Type Parameter |Summary |
 |-|-|
 </value>
   </data>

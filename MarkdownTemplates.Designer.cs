@@ -61,14 +61,43 @@ namespace Azavar.Tools.XmlDocToMd {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///```
-        ///{0}
-        ///```.
+        ///   Looks up a localized string similar to `{0}`.
         /// </summary>
         internal static string CodeBlock {
             get {
                 return ResourceManager.GetString("CodeBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to |{0}|{1}|.
+        /// </summary>
+        internal static string ExceptionItem {
+            get {
+                return ResourceManager.GetString("ExceptionItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///.
+        /// </summary>
+        internal static string ExceptionsFooter {
+            get {
+                return ResourceManager.GetString("ExceptionsFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ##### Exceptions
+        ///
+        ///| Exception | Condition |
+        ///|-|-|
+        ///.
+        /// </summary>
+        internal static string ExceptionsHeader {
+            get {
+                return ResourceManager.GetString("ExceptionsHeader", resourceCulture);
             }
         }
         
@@ -87,7 +116,7 @@ namespace Azavar.Tools.XmlDocToMd {
         ///
         ///{2}
         ///
-        ///{3}{4}.
+        ///{3}{4}{5}.
         /// </summary>
         internal static string MethodItem {
             get {
@@ -116,7 +145,9 @@ namespace Azavar.Tools.XmlDocToMd {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to | Parameter | Type | Summary |
+        ///   Looks up a localized string similar to ##### Parameters
+        ///
+        ///| Parameter | Type | Summary |
         ///|-|-|-|
         ///.
         /// </summary>
@@ -248,7 +279,9 @@ namespace Azavar.Tools.XmlDocToMd {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to | Type Parameter |Summary |
+        ///   Looks up a localized string similar to ##### Generic Type Parameters
+        ///
+        ///| Type Parameter |Summary |
         ///|-|-|
         ///.
         /// </summary>

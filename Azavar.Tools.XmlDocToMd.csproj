@@ -53,7 +53,7 @@
     <Compile Include="Model\Documentation.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Method.cs" />
-    <Compile Include="Model\MethodException.cs" />
+    <Compile Include="Model\ThrownException.cs" />
     <Compile Include="Model\MethodParameter.cs" />
     <Compile Include="Model\TypeParameter.cs" />
     <Compile Include="Model\Property.cs" />

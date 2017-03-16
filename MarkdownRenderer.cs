@@ -114,7 +114,11 @@ namespace Azavar.Tools.XmlDocToMd
                 result += MarkdownTemplates.PropertiesHeader;
                 foreach (var property in properties)
                 {
-                    result += RenderProperty(property);
+                    result += string.Format(MarkdownTemplates.PropertyItem,
+                        GetUsableId(property.Id),
+                        property.Name,
+                        RenderDocumentation(property.Documentation)
+                    );
                 }
                 result += MarkdownTemplates.PropertiesFooter;
             }
@@ -136,15 +140,6 @@ namespace Azavar.Tools.XmlDocToMd
             return result;
         }
 
-        private string RenderProperty(Property property)
-        {
-            return string.Format(MarkdownTemplates.PropertyItem,
-                GetUsableId(property.Id),
-                property.Name,
-                RenderDocumentation(property.Documentation)
-            );
-        }
-
         private string RenderMethod(Method method)
         {
             return string.Format(MarkdownTemplates.MethodItem,
@@ -152,7 +147,8 @@ namespace Azavar.Tools.XmlDocToMd
                 GetPresentableMethodName(method),
                 RenderDocumentation(method.Documentation),
                 RenderTypeParameters(method.TypeParameters),
-                RenderMethodParameters(method.Parameters)
+                RenderMethodParameters(method.Parameters),
+                RenderExceptions(method.ThrownExceptions)
             );
         }
 
@@ -227,6 +223,36 @@ namespace Azavar.Tools.XmlDocToMd
             }
             return result;
         }
+
+        private string RenderExceptions(List<ThrownException> thrownExceptions)
+        {
+            var result = string.Empty;
+            if (thrownExceptions.Any())
+            {
+                result += MarkdownTemplates.ExceptionsHeader;
+                foreach (var thrownException in thrownExceptions)
+                {
+                    string typeText;
+                    var typeId = $"T:{thrownException.ExceptionClassId}";
+                    if (Model.Members.ContainsKey(typeId))
+                    {
+                        var type = Model.Members[typeId] as Model.Type;
+                        typeText = string.Format(MarkdownTemplates.Link, GetPresentableTypeName(type),
+                            RootUrl + RelativeLocationFor(type));
+                    }
+                    else
+                    {
+                        typeText = GetPresentableUnknownTypeName(thrownException.ExceptionClassId);
+                    }
+                    result += string.Format(MarkdownTemplates.ExceptionItem,
+                        typeText,
+                        RenderDocumentation(thrownException.Documentation)
+                    );
+                }
+                result += MarkdownTemplates.ExceptionsFooter;
+            }
+            return result;
+        }
         #endregion
 
         #region String cleaning
@@ -269,6 +295,8 @@ namespace Azavar.Tools.XmlDocToMd
 
         private string GetPresentableUnknownTypeName(string name)
         {
+            if (name.StartsWith("T:"))
+                name = name.Substring(2);
             var match = Regex.Match(name, "`+(?<genericParams>\\d)");
             if (!match.Success) return name;
             var paramTypes = new List<string>();
@@ -337,15 +365,15 @@ namespace Azavar.Tools.XmlDocToMd
 
         private string GetMethodParameterTypeName(MethodParameter parameter)
         {
-            return Regex.Replace(parameter.TypeName, "{.+}",
+            return Regex.Replace(parameter.TypeId, "{.+}",
                 match => "`" + match.Value.Split(new[] { "," }, StringSplitOptions.None).Length);
 
         }
 
         private string GetMethodParameterPresentableTypeName(MethodParameter parameter)
         {
-            var methodLevelGenerics = Regex.Matches(parameter.TypeName, "``+(?<genericParams>\\d)");
-            var typeText = parameter.TypeName.Replace("{", "<").Replace("}", ">");
+            var methodLevelGenerics = Regex.Matches(parameter.TypeId, "``+(?<genericParams>\\d)");
+            var typeText = parameter.TypeId.Replace("{", "<").Replace("}", ">");
             var c = 1;
             if (methodLevelGenerics.Count > 0)
             {
@@ -360,7 +388,7 @@ namespace Azavar.Tools.XmlDocToMd
                     c++;
                 }
             }
-            var classLevelGenerics = Regex.Matches(parameter.TypeName, "`+(?<genericParams>\\d)");
+            var classLevelGenerics = Regex.Matches(parameter.TypeId, "`+(?<genericParams>\\d)");
             if (classLevelGenerics.Count > 0)
             {
                 foreach (Match classLevelGeneric in classLevelGenerics)
