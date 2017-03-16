@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.Documentation">
+    <Position X="10.75" Y="0.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAgAAI=</HashCode>
+      <FileName>Model\Documentation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="SubDocumentation" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.Member">
+    <Position X="6.75" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Model\Member.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Documentation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.Method">
+    <Position X="10.75" Y="3" Width="3" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAgAAAAAAAAAAAAAAIAAgAAAAAA=</HashCode>
+      <FileName>Model\Method.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.Property">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="ContainingType" Type="Azavar.Tools.XmlDocToMd.Model.Type">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="1.14" Y="0.09" Height="0.182" Width="1.289" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Model\Property.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ContainingType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.Type">
+    <Position X="2" Y="3" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="ContainingType" Type="Azavar.Tools.XmlDocToMd.Model.Type" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.161" Y="4.492" />
+        <Point X="2.161" Y="4.742" />
+        <Point X="2.804" Y="4.742" />
+        <Point X="2.804" Y="4.492" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Methods" Type="Azavar.Tools.XmlDocToMd.Model.Method" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.688" Y="4.492" />
+        <Point X="3.688" Y="5.035" />
+        <Point X="10.75" Y="5.035" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="4.114" Y="0.068" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Properties" Type="Azavar.Tools.XmlDocToMd.Model.Property" FixedFromPoint="true">
+      <Path>
+        <Point X="4.25" Y="4" />
+        <Point X="6.75" Y="4" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.539" Y="0.084" Height="0.182" Width="1.848" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TypeParameters" Type="Azavar.Tools.XmlDocToMd.Model.TypeParameter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.125" Y="4.492" />
+        <Point X="3.125" Y="6.181" />
+        <Point X="5.25" Y="6.181" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.06" Y="0.11" Height="0.182" Width="2.544" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAACAAAAAAAAAAAgAAAAAAAAAAAAAAAAACAEA=</HashCode>
+      <FileName>Model\Type.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ContainingType" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Methods" />
+      <Property Name="NestedTypes" />
+      <Property Name="Properties" />
+      <Property Name="TypeParameters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.TypeParameter">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Documentation" Type="Azavar.Tools.XmlDocToMd.Model.Documentation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="6.181" />
+        <Point X="14.125" Y="6.181" />
+        <Point X="14.125" Y="1.795" />
+        <Point X="13.75" Y="1.795" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TypeParameter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Documentation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel">
+    <Position X="2" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Members" Type="Azavar.Tools.XmlDocToMd.Model.Member">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.17" Y="0.09" Height="0.182" Width="2.521" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Model\XmlDocumentationModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Members" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

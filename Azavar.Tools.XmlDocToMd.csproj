@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Model\Methods.cd" />
+    <None Include="Model\Types and Properties.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MarkdownTemplates.resx">
