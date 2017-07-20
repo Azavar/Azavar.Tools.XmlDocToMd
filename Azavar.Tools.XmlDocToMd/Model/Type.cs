@@ -55,7 +55,7 @@ namespace Azavar.Tools.XmlDocToMd.Model
         /// <summary>
         /// Gets a reference to the type that contains this type if it is a nested type, otherwise null.
         /// </summary>
-        public Type ContainingType { get;  }
+        public Type ContainingType { get; }
         /// <summary>
         /// Gets the namespace in which this type is define, formatted as an array of strings ("Ns1.Ns2" will be {"Ns1","Ns2"}).
         /// </summary>
@@ -77,5 +77,10 @@ namespace Azavar.Tools.XmlDocToMd.Model
         /// </summary>
         public List<Type> NestedTypes { get; } = new List<Type>();
 
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Model.AssemblyName + "." + string.Join(".", NamespaceStrings.Concat(new[] { Name }));
+        }
     }
 }

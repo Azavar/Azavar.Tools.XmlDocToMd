@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Azavar.Tools.XmlDocToMd.Model;
@@ -36,14 +37,26 @@ namespace Azavar.Tools.XmlDocToMd
         }
 
         #region Rendering methods
+
         /// <summary>
-        /// Runs the logic to generate markdown files.
+        /// Runs the logic to generate markdown files for all types in the documentation model.
         /// </summary>
-        public void Render()
+        public void RenderAllTypes()
+        {
+            RenderSelectedTypes(null);
+        }
+
+        /// <summary>
+        /// Runs the logic to generate markdown files for selected types only.
+        /// </summary>
+        /// <param name="types">The selected types to render, passing null will generate for all types in the documentation model.</param>
+        public void RenderSelectedTypes(IEnumerable<Model.Type> types)
         {
             Console.WriteLine(@"Processing documentation for assembly: {0}", Model.AssemblyName);
-            var files = Model.Members.Values.Where(m => (m as Model.Type) != null).Cast<Model.Type>().GroupBy(RelativeFileFor).ToDictionary(
-                grp => grp.Key, grp => grp.ToArray());
+            var typeList = Model.Members.Values.Where(m => (m as Model.Type) != null).Cast<Model.Type>();
+            if (types != null)
+                typeList = typeList.Intersect(types);
+            var files = typeList.GroupBy(RelativeFileFor).ToDictionary(grp => grp.Key, grp => grp.ToArray());
             foreach (var file in files)
             {
                 var filePath = Path.Combine(OutputFolderPath, file.Key.TrimStart(Path.DirectorySeparatorChar));
@@ -190,7 +203,7 @@ namespace Azavar.Tools.XmlDocToMd
             if (!d.SubDocumentation.Any())
             {
                 if (d.DocumentationType == null)
-                    return cleanText ? CleanText(d.FormattedContent) : d.FormattedContent.Trim();
+                    return cleanText ? CleanText(d.FormattedContent) : d.FormattedContent;
                 if (d.DocumentationType == "see")
                 {
                     var referenced = d.Attributes["cref"];
@@ -270,7 +283,7 @@ namespace Azavar.Tools.XmlDocToMd
         {
             if (string.IsNullOrEmpty(text))
                 return string.Empty;
-            return Regex.Replace(text.Trim(), "\\s+", " ");
+            return text;
         }
 
         private string GetPresentableTypeName(Model.Type type)
