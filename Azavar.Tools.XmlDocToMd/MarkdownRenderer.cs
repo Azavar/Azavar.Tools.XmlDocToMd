@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Azavar.Tools.XmlDocToMd.Model;
@@ -73,10 +72,16 @@ namespace Azavar.Tools.XmlDocToMd
                         sb.AppendLine(RenderNamespace(@namespace));
                     }
                 }
+                sb.AppendLine(MarkdownTemplates.TOCTitle);
+                foreach (var type in file.Value)
+                {
+                    sb.Append(RenderTocType(type));
+                }
                 foreach (var type in file.Value)
                 {
                     Console.WriteLine(@"	 {0}", GetPresentableTypeName(type));
                     sb.AppendLine(RenderType(type));
+                    sb.AppendLine(string.Format(MarkdownTemplates.Link, "\u2191 Top", "#TOC"));
                 }
                 var dirInfo = Directory.GetParent(filePath);
                 dirInfo.Create();
@@ -89,6 +94,31 @@ namespace Azavar.Tools.XmlDocToMd
         {
             return string.Format(MarkdownTemplates.NamspaceItem, GetFullNamespaceString(string.Join(".", ns)),
                 RootUrl + RelativeFolderForNamespace(ns));
+        }
+
+        private string RenderTocType(Model.Type type)
+        {
+            var id = GetUsableId(type.Id);
+            var name = GetPresentableTypeName(type);
+            var result = "- Type " + string.Format(MarkdownTemplates.Link, name, "#" + id);
+            if (type.Methods.Any() || type.Properties.Any())
+            {
+                result += " (";
+                if (type.Properties.Any())
+                {
+                    result += string.Format(MarkdownTemplates.Link, "Properties", "#" + id + "_Properties");
+                    if (type.Methods.Any())
+                    {
+                        result += ", ";
+                    }
+                }
+                if (type.Methods.Any())
+                {
+                    result += string.Format(MarkdownTemplates.Link, "Methods", "#" + id + "_Methods");
+                }
+                result += ")\r\n";
+            }
+            return result;
         }
 
         private string RenderType(Model.Type type)
@@ -124,7 +154,7 @@ namespace Azavar.Tools.XmlDocToMd
             var result = string.Empty;
             if (properties.Any())
             {
-                result += MarkdownTemplates.PropertiesHeader;
+                result += string.Format(MarkdownTemplates.PropertiesHeader, GetUsableId(properties.First().ContainingType.Id));
                 foreach (var property in properties)
                 {
                     result += string.Format(MarkdownTemplates.PropertyItem,
@@ -143,7 +173,7 @@ namespace Azavar.Tools.XmlDocToMd
             var result = string.Empty;
             if (methods.Any())
             {
-                result += MarkdownTemplates.MethodsHeader;
+                result += string.Format(MarkdownTemplates.MethodsHeader, GetUsableId(methods.First().ContainingType.Id));
                 foreach (var method in methods)
                 {
                     result += RenderMethod(method);
@@ -449,7 +479,7 @@ namespace Azavar.Tools.XmlDocToMd
 
         private string RelativeFileFor(Model.Type type)
         {
-            return $"{RelativeFolderFor(type)}{Path.DirectorySeparatorChar}README.md";
+            return $"{RelativeFolderFor(type)}{Path.DirectorySeparatorChar}Classes.md";
         }
 
         //private string RelativeCodeFileFor(Type type)

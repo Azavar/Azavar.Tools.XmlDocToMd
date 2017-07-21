@@ -85,6 +85,7 @@ namespace Azavar.Tools.XmlDocToMd.WindowsApp
                 var markdownRenderer = new MarkdownRenderer(_documentationModel, fbdOutputPath.SelectedPath, txtGitHubRepositoryRootURL.Text);
                 markdownRenderer.RenderSelectedTypes(clbTypes.CheckedItems.Cast<Model.Type>());
                 MessageBox.Show(this, "Markdown files generated successfully!");
+                System.Diagnostics.Process.Start(fbdOutputPath.SelectedPath);
             }
             catch (Exception exp)
             {

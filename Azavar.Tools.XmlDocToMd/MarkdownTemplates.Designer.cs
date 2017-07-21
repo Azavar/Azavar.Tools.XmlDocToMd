@@ -167,7 +167,8 @@ namespace Azavar.Tools.XmlDocToMd {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #### Methods
+        ///   Looks up a localized string similar to &lt;a name=&quot;{0}_Methods&quot;&gt;&lt;/a&gt;
+        ///#### Methods
         ///
         ///.
         /// </summary>
@@ -209,7 +210,8 @@ namespace Azavar.Tools.XmlDocToMd {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #### Properties
+        ///   Looks up a localized string similar to &lt;a name=&quot;{0}_Properties&quot;&gt;&lt;/a&gt;
+        ///#### Properties
         ///
         ///.
         /// </summary>
@@ -241,6 +243,16 @@ namespace Azavar.Tools.XmlDocToMd {
         internal static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;a name=&quot;TOC&quot;&gt;&lt;/a&gt;
+        ///### Table of contents.
+        /// </summary>
+        internal static string TOCTitle {
+            get {
+                return ResourceManager.GetString("TOCTitle", resourceCulture);
             }
         }
         
