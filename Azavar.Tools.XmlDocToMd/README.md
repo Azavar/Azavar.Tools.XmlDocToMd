@@ -4,13 +4,13 @@
 ### Namespaces
 
 
-- [Azavar.Tools.XmlDocToMd.Model](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model)
+- [Azavar.Tools.XmlDocToMd.Model](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model)
 
 
 <a name="T:Azavar.Tools.XmlDocToMd.MarkdownRenderer"></a>
 ### MarkdownRenderer
 
-  A class that analyzes an  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  and generates markdown files.
+  A class that analyzes an  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  and generates markdown files.
 
 
 
@@ -33,7 +33,7 @@
 <a name="P:Azavar.Tools.XmlDocToMd.MarkdownRenderer.Model"></a>
 ##### Model
 
-  A representation of the XML documentation of type  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel) .
+  A representation of the XML documentation of type  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel) .
 
 
 
@@ -59,245 +59,29 @@ and value represents an array of sub-namespaces formatted as an array of strings
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|An  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  loaded from XML documentation file.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|An  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  loaded from XML documentation file.|
 |outputFolderPath|System.String|The path to the folder where generated files will be placed.|
 |rootUrl|System.String|The home page of the github repository as it appears in the browser, like: "https://github.com/repository-name/blob/master/".|
 
-<a name="M:Azavar.Tools.XmlDocToMd.MarkdownRenderer.Render"></a>
-##### Render
+<a name="M:Azavar.Tools.XmlDocToMd.MarkdownRenderer.RenderAllTypes"></a>
+##### RenderAllTypes
 
-  Runs the logic to generate markdown files.
+  Runs the logic to generate markdown files for all types in the documentation model.
 
 
 
+<a name="M:Azavar.Tools.XmlDocToMd.MarkdownRenderer.RenderSelectedTypes(System.Collections.Generic.IEnumerable{Azavar.Tools.XmlDocToMd.Model.Type})"></a>
+##### RenderSelectedTypes(System.Collections.Generic.IEnumerable<Azavar.Tools.XmlDocToMd.Model.Type>)
 
-<a name="T:Azavar.Tools.XmlDocToMd.MarkdownTemplates"></a>
-### MarkdownTemplates
+  Runs the logic to generate markdown files for selected types only.
 
-  A strongly-typed resource class, for looking up localized strings, etc.
 
-            
 
-#### Properties
+##### Parameters
 
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.ResourceManager"></a>
-##### ResourceManager
-
-  Returns the cached ResourceManager instance used by this class.
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.Culture"></a>
-##### Culture
-
-  Overrides the current thread's CurrentUICulture property for all
-
-resource lookups using this strongly typed resource class.
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.CodeBlock"></a>
-##### CodeBlock
-
-  Looks up a localized string similar to `{0}`.
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.ExceptionItem"></a>
-##### ExceptionItem
-
-  Looks up a localized string similar to |{0}|{1}|.
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.ExceptionsFooter"></a>
-##### ExceptionsFooter
-
-  Looks up a localized string similar to 
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.ExceptionsHeader"></a>
-##### ExceptionsHeader
-
-  Looks up a localized string similar to ##### Exceptions
-
-           | Exception | Condition |
-
-            |-|-|
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.Link"></a>
-##### Link
-
-  Looks up a localized string similar to [{0}]({1}).
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodItem"></a>
-##### MethodItem
-
-  Looks up a localized string similar to <a name="{0}"></a>
-
-            ##### {1}
-
-           {2}
-
-           {3}{4}{5}.
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodParameterItem"></a>
-##### MethodParameterItem
-
-  Looks up a localized string similar to |{0}|{1}|{2}|
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodParametersFooter"></a>
-##### MethodParametersFooter
-
-  Looks up a localized string similar to 
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodParametersHeader"></a>
-##### MethodParametersHeader
-
-  Looks up a localized string similar to ##### Parameters
-
-           | Parameter | Type | Summary |
-
-            |-|-|-|
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodsFooter"></a>
-##### MethodsFooter
-
-  Looks up a localized string similar to .
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.MethodsHeader"></a>
-##### MethodsHeader
-
-  Looks up a localized string similar to #### Methods
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.NamspaceItem"></a>
-##### NamspaceItem
-
-  Looks up a localized string similar to - [{0}]({1})
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.NamspacesTitle"></a>
-##### NamspacesTitle
-
-  Looks up a localized string similar to ### Namespaces
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.PropertiesFooter"></a>
-##### PropertiesFooter
-
-  Looks up a localized string similar to .
-
-            
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.PropertiesHeader"></a>
-##### PropertiesHeader
-
-  Looks up a localized string similar to #### Properties
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.PropertyItem"></a>
-##### PropertyItem
-
-  Looks up a localized string similar to <a name="{0}"></a>
-
-            ##### {1}
-
-           {2}
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.Title"></a>
-##### Title
-
-  Looks up a localized string similar to ## {0}
-
-           .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.TypeFormat"></a>
-##### TypeFormat
-
-  Looks up a localized string similar to <a name="{0}"></a>
-
-            ### {1}
-
-           {2}
-
-           {3}{4}{5}.
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.TypeParameterItem"></a>
-##### TypeParameterItem
-
-  Looks up a localized string similar to |{0}|{1}|
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.TypeParametersFooter"></a>
-##### TypeParametersFooter
-
-  Looks up a localized string similar to 
-
-            .
-
-             
-
-<a name="P:Azavar.Tools.XmlDocToMd.MarkdownTemplates.TypeParametersHeader"></a>
-##### TypeParametersHeader
-
-  Looks up a localized string similar to ##### Generic Type Parameters
-
-           | Type Parameter |Summary |
-
-            |-|-|
-
-            .
-
-             
+| Parameter | Type | Summary |
+|-|-|-|
+|types|System.Collections.Generic.IEnumerable<Azavar.Tools.XmlDocToMd.Model.Type>|The selected types to render, passing null will generate for all types in the documentation model.|
 
 
 <a name="T:Azavar.Tools.XmlDocToMd.Program"></a>

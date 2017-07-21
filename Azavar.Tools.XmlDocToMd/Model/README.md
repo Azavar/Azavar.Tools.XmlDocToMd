@@ -22,7 +22,7 @@ the tag and all its contents will be loaded in a recursive structure.
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Documentation.FormattedContent"></a>
 ##### FormattedContent
 
-  Gets the inner-XML of the element as a format string. Placeholders, if any, correspond to items in  [SubDocumentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#P:Azavar.Tools.XmlDocToMd.Model.Documentation.SubDocumentation) .
+  Gets the inner-XML of the element as a format string. Placeholders, if any, correspond to items in  [SubDocumentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#P:Azavar.Tools.XmlDocToMd.Model.Documentation.SubDocumentation) .
 
 
 
@@ -38,7 +38,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Documentation.SubDocumentation"></a>
 ##### SubDocumentation
 
-  Gets an ordered list of Documenaton objects representing XML node childs and correspond to placeholders in  [FormattedContent](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#P:Azavar.Tools.XmlDocToMd.Model.Documentation.FormattedContent) .
+  Gets an ordered list of Documenaton objects representing XML node childs and correspond to placeholders in  [FormattedContent](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#P:Azavar.Tools.XmlDocToMd.Model.Documentation.FormattedContent) .
 
 
 
@@ -101,7 +101,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Member.Model"></a>
 ##### Model
 
-  Gets the  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  containing this member.
+  Gets the  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  containing this member.
 
 
 
@@ -122,7 +122,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Member.Documentation"></a>
 ##### Documentation
 
-  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the member. 
+  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the member. 
 
 
 
@@ -139,7 +139,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this member.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this member.|
 |node|System.Xml.XmlNode|The XML node represented by this member.|
 
 ##### Exceptions
@@ -160,21 +160,21 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Method.Parameters"></a>
 ##### Parameters
 
-  Gets an ordered list of  [MethodParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.MethodParameter)  representing the method parameters.
+  Gets an ordered list of  [MethodParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.MethodParameter)  representing the method parameters.
 
 
 
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Method.TypeParameters"></a>
 ##### TypeParameters
 
-  Gets an ordered list of  [TypeParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.TypeParameter)  representing generic type parameters.
+  Gets an ordered list of  [TypeParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.TypeParameter)  representing generic type parameters.
 
 
 
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Method.ThrownExceptions"></a>
 ##### ThrownExceptions
 
-  Gets an ordered list of  [ThrownException](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.ThrownException)  represnting exceptions thrown by this method.
+  Gets an ordered list of  [ThrownException](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.ThrownException)  represnting exceptions thrown by this method.
 
 
 
@@ -198,7 +198,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this method.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this method.|
 |node|System.Xml.XmlNode|The XML node represented by this method.|
 
 ##### Exceptions
@@ -210,7 +210,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="T:Azavar.Tools.XmlDocToMd.Model.ThrownException"></a>
 ### ThrownException
 
-  Represents an exception element for a  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method) .
+  Represents an exception element for a  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method) .
 
 
 
@@ -226,7 +226,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.ThrownException.Documentation"></a>
 ##### Documentation
 
-  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with this ThrownException.
+  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with this ThrownException.
 
 
 
@@ -270,7 +270,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.MethodParameter.Method"></a>
 ##### Method
 
-  Gets the parent  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method) .
+  Gets the parent  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method) .
 
 
 
@@ -284,7 +284,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.MethodParameter.Documentation"></a>
 ##### Documentation
 
-  Gets or sets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the parameter.
+  Gets or sets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the parameter.
 
 
 
@@ -301,7 +301,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 
 | Parameter | Type | Summary |
 |-|-|-|
-|method|[Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method)|The parent method.|
+|method|[Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method)|The parent method.|
 |typeId|System.String|The ID of the type as it appears in the method ID.|
 
 ##### Exceptions
@@ -329,7 +329,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.TypeParameter.Documentation"></a>
 ##### Documentation
 
-  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the type parameter. 
+  Gets the  [Documentation](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Documentation)  object associated with the type parameter. 
 
 
 
@@ -383,7 +383,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this property.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this property.|
 |node|System.Xml.XmlNode|The XML node represented by this property.|
 
 ##### Exceptions
@@ -418,21 +418,21 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Type.TypeParameters"></a>
 ##### TypeParameters
 
-  Gets an ordered list of  [TypeParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.TypeParameter)  representing generic type parameters.
+  Gets an ordered list of  [TypeParameter](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.TypeParameter)  representing generic type parameters.
 
 
 
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Type.Methods"></a>
 ##### Methods
 
-  Gets a list of  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method)  representing all docuemnted methods and costructors of this type.
+  Gets a list of  [Method](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Method)  representing all docuemnted methods and costructors of this type.
 
 
 
 <a name="P:Azavar.Tools.XmlDocToMd.Model.Type.Properties"></a>
 ##### Properties
 
-  Gets a list of  [Property](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Property)  representing all documented properties of this type.
+  Gets a list of  [Property](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Property)  representing all documented properties of this type.
 
 
 
@@ -456,7 +456,7 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this type.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|The parent model containing this type.|
 |node|System.Xml.XmlNode|The XML node represented by this type.|
 
 ##### Exceptions
@@ -464,11 +464,16 @@ like {"cref", "T:System.Enum"} for  `<see cref="T:System.Enum"/>` .
 | Exception | Condition |
 |-|-|
 |System.FormatException|The name attribute has an invalid format.|
+<a name="M:Azavar.Tools.XmlDocToMd.Model.Type.ToString"></a>
+##### ToString
+
+
+
 
 <a name="T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel"></a>
 ### XmlDocumentationModel
 
-  Represents a parsed model of the contents of an XML documentation file generated by Visual Studio as desribed here:  https://msdn.microsoft.com/en-us/library/b2s063f7.aspx .
+  Represents a parsed model of the contents of an XML documentation file generated by Visual Studio as desribed here: https://msdn.microsoft.com/en-us/library/b2s063f7.aspx.
 
 This class doesn't fully make use of all capabilities of XML documentation.
 
@@ -486,7 +491,7 @@ This class doesn't fully make use of all capabilities of XML documentation.
 <a name="P:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel.Members"></a>
 ##### Members
 
-  Gets a dictionary of all  [Member](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Member)  instances within the model where the key is the member ID and he value is the object reference.
+  Gets a dictionary of all  [Member](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.Member)  instances within the model where the key is the member ID and he value is the object reference.
 
 
 
