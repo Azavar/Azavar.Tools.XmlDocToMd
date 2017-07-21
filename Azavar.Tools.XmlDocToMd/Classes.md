@@ -7,13 +7,17 @@
 - [Azavar.Tools.XmlDocToMd.Model](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model)
 
 
-<a name="T:Azavar.Tools.XmlDocToMd.MarkdownRenderer"></a>
+<a name="TOC"></a>
+### Table of contents
+- Type [MarkdownRenderer](#T:Azavar.Tools.XmlDocToMd.MarkdownRenderer) ([Properties](#T:Azavar.Tools.XmlDocToMd.MarkdownRenderer_Properties), [Methods](#T:Azavar.Tools.XmlDocToMd.MarkdownRenderer_Methods))
+- Type [Program](#T:Azavar.Tools.XmlDocToMd.Program)<a name="T:Azavar.Tools.XmlDocToMd.MarkdownRenderer"></a>
 ### MarkdownRenderer
 
-  A class that analyzes an  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  and generates markdown files.
+  A class that analyzes an  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/Classes.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  and generates markdown files.
 
 
 
+<a name="T:Azavar.Tools.XmlDocToMd.MarkdownRenderer_Properties"></a>
 #### Properties
 
 <a name="P:Azavar.Tools.XmlDocToMd.MarkdownRenderer.OutputFolderPath"></a>
@@ -33,7 +37,7 @@
 <a name="P:Azavar.Tools.XmlDocToMd.MarkdownRenderer.Model"></a>
 ##### Model
 
-  A representation of the XML documentation of type  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel) .
+  A representation of the XML documentation of type  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/Classes.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel) .
 
 
 
@@ -46,6 +50,7 @@ and value represents an array of sub-namespaces formatted as an array of strings
 
 
 
+<a name="T:Azavar.Tools.XmlDocToMd.MarkdownRenderer_Methods"></a>
 #### Methods
 
 <a name="M:Azavar.Tools.XmlDocToMd.MarkdownRenderer._ctor(Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel,System.String,System.String)"></a>
@@ -59,7 +64,7 @@ and value represents an array of sub-namespaces formatted as an array of strings
 
 | Parameter | Type | Summary |
 |-|-|-|
-|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|An  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/README.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  loaded from XML documentation file.|
+|model|[XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/Classes.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)|An  [XmlDocumentationModel](https://github.com/Azavar/Azavar.Tools.XmlDocToMd/blob/master/Azavar.Tools.XmlDocToMd/Model/Classes.md#T:Azavar.Tools.XmlDocToMd.Model.XmlDocumentationModel)  loaded from XML documentation file.|
 |outputFolderPath|System.String|The path to the folder where generated files will be placed.|
 |rootUrl|System.String|The home page of the github repository as it appears in the browser, like: "https://github.com/repository-name/blob/master/".|
 
@@ -84,6 +89,7 @@ and value represents an array of sub-namespaces formatted as an array of strings
 |types|System.Collections.Generic.IEnumerable<Azavar.Tools.XmlDocToMd.Model.Type>|The selected types to render, passing null will generate for all types in the documentation model.|
 
 
+[↑ Top](#TOC)
 <a name="T:Azavar.Tools.XmlDocToMd.Program"></a>
 ### Program
 
@@ -106,3 +112,4 @@ How to use:
 
 
 
+[↑ Top](#TOC)
