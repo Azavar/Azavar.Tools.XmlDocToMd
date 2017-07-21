@@ -1,0 +1,9 @@
+version: 1.0.{build}
+environment:
+  CONFIGURATION: Release
+build:
+  verbosity: minimal
+artifacts:
+  - path: Azavar.Tools.XmlDocToMd.WindowsApp\bin\$(configuration)
+    name: Azavar.Tools.XmlDocToMd.WindowsApp
+    type: zip
